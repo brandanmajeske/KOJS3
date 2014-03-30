@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Knockout JS 3.0</title>
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body>
+<div class="container">
+	<h1>Knockout JS 3.0</h1>
+
+	<div class="example" id="independentBindings">
+	<h3>Independent Bindings</h3>
+	<input type="checkbox" data-bind="checked: showEditor" />
+	<span data-bind="text: count"></span><hr/>
+	<div data-bind="visible: showEditor, template: 'editor', blah: count(count() + 1)"></div>
+	<script id="editor" type="text/html">
+		<input data-bind="value: name" />		
+	</script>
+	</div>
+
+	<div class="example" id="orderedBindings">
+		
+	<h3>Ordered Bindings</h3>
+		<ul data-bind="foreach: items">
+			<li>
+				<input data-bind="checked: $parent.selectedItems,
+									attr: { value: $data }" type="checkbox" />
+				<span data-bind="text: $data"></span>
+			</li>
+		</ul>
+		<hr/>
+		<ul data-bind="foreach: selectedItems">
+			<li data-bind="text: $data"></li>
+		</ul>
+	</div>
+
+
+	<div class="example" id="checkedValue">
+		<h3>Checked Value</h3>
+		<ul data-bind="foreach: items">
+			<li>
+				<input data-bind="checkedValue: $data, checked: $parent.selectedItems" type="checkbox" />
+				<span data-bind="text: name"></span>
+			</li>
+		</ul>
+		<hr/>
+		<ul data-bind="foreach: selectedItems">
+			<li data-bind="text: id +' : '+ name"></li>
+		</ul>
+	</div>
+
+	<div class="example" id="customBinding">
+	<h3>Custom Binding</h3>
+		<input data-bind="valueWithInit: first" value="Bob" />
+		<div data-bind="text: first"></div>
+	</div>
+
+
+	<div class="example" id="customBindingLive">
+	<h3>Custom Binding Live</h3>
+		<input data-bind="live: first" />
+		<div data-bind="text: first"></div>
+		
+	</div>
+
+	<div class="example" id="preprocessNodes">
+	<h3>Preprocess Nodes</h3>
+		
+		<brandan></brandan>
+
+		<script id="brandan" type="text/html">
+			<input data-bind="value: first" />
+		</script>
+
+	</div>
+
+	<div class="example" id="knockoutPunches">
+	<h3>Knockout Punches Pt 1</h3>
+	<p class="muted-text"><em>This requires a plugin called <strong>Knockout Punches</strong></em></p>
+		
+		My name id {{ name }}
+
+		<hr/>
+		<label>Name:&nbsp;
+		<input data-bind="value: name"></label>
+		
+	</div>
+	
+	<div class="example" id="onFlyBindings">
+	<h3>On The Fly Bindings</h3>
+		<div data-bind="text: name, attr-title: description"></div>
+
+	</div>
+
+	<div class="example" id="VMarrayChanges">
+	<h3>Array Changes</h3>
+		<ul class="media-list" data-bind="foreach: items">
+			<li>
+				<h4 class="col-sm-1" data-bind="text: name"></h4>
+				<button class="btn btn-danger" data-bind="click: $parent.removeItem"><span class="glyphicon glyphicon-remove"></span></button>
+			</li>
+		</ul>
+
+		<button class="btn btn-default" data-bind="click: addItem"><span class="glyphicon glyphicon-plus-sign"></span></button>	
+
+		<button class="btn btn-default" data-bind="click: items.bind(null, [])"><span class="glyphicon glyphicon-trash"></span></button>
+
+		<button class="btn btn-default" data-bind="click: swap"><span class="glyphicon glyphicon-random"></span></button>
+		<hr/>
+		
+		<pre class="well" data-bind="text: ko.toJSON(changes, null, 2)"></pre>
+	</div>
+
+
+	<div class="example" id="computedNotifications">
+	<h3>Computed Notifications</h3>
+		
+		<div data-bind="text: count"></div>
+		<ul class="media-list" data-bind="foreach: items">
+			<li data-bind="text: $data"></li>
+		</ul>
+
+
+		<button data-bind="click: addItem, enable: canAddItems" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span></button>
+
+	</div>
+
+
+</div>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="js/knockout.js"></script>
+<script src="js/knockout.punches.js"></script>
+<script src="js/min/main.min.js"></script>
+<script src="js/ViewModels/MainVM.js"></script>
+</body>
+</html>
